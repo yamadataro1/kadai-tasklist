@@ -34,6 +34,9 @@ public class taskDTO {
     private Timestamp created_at;
 
 
+    @Column(name = "updated_at", nullable = false)
+    private Timestamp updated_at;
+
 
 
     public Integer getId() {
@@ -60,6 +63,14 @@ public class taskDTO {
 
     public void setCreated_at(Timestamp created_at) {
         this.created_at = created_at;
+    }
+
+    public Timestamp getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Timestamp updated_at) {
+        this.updated_at = updated_at;
     }
 
 
