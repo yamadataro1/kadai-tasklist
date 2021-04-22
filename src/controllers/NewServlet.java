@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,18 +44,14 @@ public class NewServlet extends HttpServlet {
         String content = "hello";
         t.setContent(content);
 
-        Timestamp currentTime = new Timestamp(System.currentTimeMillis());     // 現在の日時を取得
-        t.setCreated_at(currentTime);
-        t.setUpdated_at(currentTime);
+        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+        // CSRF対策
+        request.setAttribute("_token", request.getSession().getId());
 
-        // データベースに保存
-        em.getTransaction().begin();
-        em.persist(t);
-        em.getTransaction().commit();
+     // おまじないとしてのインスタンスを生成
+        request.setAttribute("taskDTO", new taskDTO());
 
-     // 自動採番されたIDの値を表示
-        response.getWriter().append(Integer.valueOf(t.getId()).toString());
-
-        em.close();
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/new.jsp");
+        rd.forward(request, response);
 }
 }
