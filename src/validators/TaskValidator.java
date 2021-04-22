@@ -5,7 +5,7 @@ import java.util.List;
 
 import models.taskDTO;
 
-public class MessageValidator {
+public class TaskValidator {
 
     // バリデーションを実行する
     public static List<String> validate(taskDTO t) {
@@ -23,7 +23,7 @@ public class MessageValidator {
     // メッセージの必須入力チェック
     private static String validateContent(String content) {
         if(content == null || content.equals("")) {
-            return "メッセージを入力してください。";
+            return "タスクを入力してください。";
         }
 
         return "";

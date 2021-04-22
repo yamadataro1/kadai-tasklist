@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.taskDTO;
 import utils.DBUtil;
-import validators.MessageValidator;
+import validators.TaskValidator;
+
 
 /**
  * Servlet implementation class CreateServlet
@@ -48,8 +49,8 @@ public class CreateServlet extends HttpServlet {
             t.setContent(content);
 
             // バリデーションを実行してエラーがあったら新規登録のフォームに戻る
-            List<String> errors = MessageValidator.validate(t);
-            if(errors.size() > 0) {
+            List<String> errors = TaskValidator.validate(t);
+            if(errors.size() > 0)  {
                 em.close();
 
                 // フォームに初期値を設定、さらにエラーメッセージを送る
