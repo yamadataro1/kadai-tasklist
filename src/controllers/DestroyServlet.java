@@ -35,6 +35,8 @@ public class DestroyServlet extends HttpServlet {
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
 
+            System.out.println("taskDTO_id = " + request.getSession().getAttribute("taskDTO_id"));
+
             // セッションスコープからメッセージのIDを取得して
             // 該当のIDのメッセージ1件のみをデータベースから取得
             taskDTO t = em.find(taskDTO.class, (Integer)(request.getSession().getAttribute("taskDTO_id")));
@@ -42,6 +44,7 @@ public class DestroyServlet extends HttpServlet {
             em.getTransaction().begin();
             em.remove(t);       // データ削除
             em.getTransaction().commit();
+            request.getSession().setAttribute("flush", "更新が完了しました。");
             em.close();
 
             // セッションスコープ上の不要になったデータを削除

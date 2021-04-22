@@ -38,20 +38,21 @@ public class UpdateServlet extends HttpServlet {
 
             // セッションスコープからメッセージのIDを取得して
             // 該当のIDのメッセージ1件のみをデータベースから取得
-            taskDTO m = em.find(taskDTO.class, (Integer)(request.getSession().getAttribute("taskDTO_id")));
+            taskDTO t = em.find(taskDTO.class, (Integer)(request.getSession().getAttribute("taskDTO_id")));
 
             // フォームの内容を各フィールドに上書き
 
 
             String content = request.getParameter("content");
-            m.setContent(content);
+            t.setContent(content);
 
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            m.setUpdated_at(currentTime);       // 更新日時のみ上書き
+            t.setUpdated_at(currentTime);       // 更新日時のみ上書き
 
             // データベースを更新
             em.getTransaction().begin();
             em.getTransaction().commit();
+            request.getSession().setAttribute("flush", "更新が完了しました。");
             em.close();
 
             // セッションスコープ上の不要になったデータを削除
