@@ -5,14 +5,27 @@
     <c:param name="content">
      <c:choose>
                 <c:when test="${taskDTO != null}">
-                    <h2>id : ${message.id} のタスクの詳細ページ</h2>
+                    <h2>id : ${taskDTO.id} のタスクの詳細ページ</h2>
 
-                    <p>タスク：<c:out value="${taskDTO.content}" /></p>
-                    <p>作成日時：<fmt:formatDate value="${taskDTO.created_at}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
-                    <p>更新日時：<fmt:formatDate value="${taskDTO.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>タスク</th>
+                                <td><c:out value="${taskDTO.content}" /></td>
+                            </tr>
+                            <tr>
+                                <th>作成日時</th>
+                                <td><fmt:formatDate value="${taskDTO.created_at}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                            </tr>
+                            <tr>
+                                <th>更新日時</th>
+                                <td><fmt:formatDate value="${taskDTO.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <p><a href="${pageContext.request.contextPath}/index">一覧に戻る</a></p>
-                    <p><a href="${pageContext.request.contextPath}/edit?id=${taskDTO.id}">このメッセージを編集する</a></p>
+                    <p><a href="${pageContext.request.contextPath}/edit?id=${taskDTO.id}">このタスクを編集する</a></p>
                 </c:when>
                 <c:otherwise>
                     <h2>お探しのデータは見つかりませんでした。</h2>
