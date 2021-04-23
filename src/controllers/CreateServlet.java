@@ -48,6 +48,10 @@ public class CreateServlet extends HttpServlet {
             String content = request.getParameter("content");
             t.setContent(content);
 
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+            t.setCreated_at(currentTime);
+            t.setUpdated_at(currentTime);
+
             // バリデーションを実行してエラーがあったら新規登録のフォームに戻る
             List<String> errors = TaskValidator.validate(t);
             if(errors.size() > 0)  {
@@ -73,17 +77,9 @@ public class CreateServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/index");
             }
 
-                Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-                t.setCreated_at(currentTime);
-                t.setUpdated_at(currentTime);
 
-                em.getTransaction().begin();
-                em.persist(t);
-                em.getTransaction().commit();
-                request.getSession().setAttribute("flush", "登録が完了しました。");
-                em.close();
 
-                response.sendRedirect(request.getContextPath() + "/index");
+
             }
     }
 
